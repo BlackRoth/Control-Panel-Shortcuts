@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cstdlib>  // For system()
+
+using namespace std;
+
+void showMenu() {
+    cout << "General settings Shortcut Launcher\n";
+    cout << "---------------------------------\n";
+    cout << "1. System Properties\n";
+    cout << "2. Network Connections\n";
+    cout << "3. Device Manager\n";
+    cout << "4. Windows Firewall\n";
+    cout << "5. User Accounts\n";
+    cout << "6. Programs and Features\n";
+    cout << "7. Power Options\n";
+    cout << "8. Display Settings\n";
+    cout << "9. Date and Time Settings\n";
+    cout << "10. Sound Settings\n";
+    cout << "11. Mouse Settings\n";
+    cout << "12. Keyboard Settings\n";
+    cout << "13. Region and Language Settings\n";
+    cout << "14. Internet Options\n";
+    cout << "15. Bluetooth Settings\n";
+    cout << "16. Printers and Scanners\n";
+    cout << "17. Administrative Tools\n";
+    cout << "18. Storage Management\n";
+    cout << "19. Security and Maintenance\n";
+    cout << "20. Ease of Access Settings\n";
+    cout << "21. Credential Manager\n";
+    cout << "22. Environment Variables\n";
+    cout << "23. Task Scheduler\n";
+    cout << "24. Windows Update\n";
+    cout << "25. System Information\n";
+    cout << "26. Exit\n";
+    cout << "Enter your choice: ";
+}
+
+void openControlPanelOption(int choice) {
+    switch (choice) {
+        case 1: system("control sysdm.cpl"); break;
+        case 2: system("control ncpa.cpl"); break;
+        case 3: system("control hdwwiz.cpl"); break;
+        case 4: system("control firewall.cpl"); break;
+        case 5: system("control /name Microsoft.UserAccounts"); break;
+        case 6: system("control appwiz.cpl"); break;
+        case 7: system("control powercfg.cpl"); break;
+        case 8: system("control desk.cpl"); break;
+        case 9: system("control timedate.cpl"); break;
+        case 10: system("control mmsys.cpl"); break;
+        case 11: system("control main.cpl"); break;
+        case 12: system("control main.cpl keyboard"); break;
+        case 13: system("control intl.cpl"); break;
+        case 14: system("control inetcpl.cpl"); break;
+        case 15: system("control bthprops.cpl"); break;
+        case 16: system("control printers"); break;
+        case 17: system("control admintools"); break;
+        case 18: system("control /name Microsoft.StorageSpaces"); break;
+        case 19: system("control /name Microsoft.ActionCenter"); break;
+        case 20: system("control /name Microsoft.EaseOfAccessCenter"); break;
+        case 21: system("control /name Microsoft.CredentialManager"); break;
+        case 22: system("rundll32.exe sysdm.cpl,EditEnvironmentVariables"); break;
+        case 23: system("control schedtasks"); break;
+        case 24: system("control /name Microsoft.WindowsUpdate"); break;
+        case 25: system("msinfo32"); break;
+        case 26: cout << "Exiting...\n"; return;
+        default: cout << "Invalid choice! Try again.\n"; return;
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        showMenu();
+        cin >> choice;
+        if (choice == 26) break;
+        openControlPanelOption(choice);
+    } while (true);
+
+    return 0;
+}

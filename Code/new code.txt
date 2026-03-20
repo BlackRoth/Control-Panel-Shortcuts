@@ -1,0 +1,107 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <cstdlib>  // For system()
+
+using namespace std;
+
+struct Shortcut {
+    string description;
+    string command;
+};
+
+// Function to load shortcuts from file
+vector<pair<int, Shortcut> > loadShortcuts(const string& filename) {
+    vector<pair<int, Shortcut> > shortcuts;
+    ifstream file(filename.c_str());  // Open file (C++98-compatible)
+
+    if (!file) {
+        cerr << "Error: Cannot open " << filename << endl;
+        return shortcuts;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        if (line.empty()) continue; // Skip empty lines
+
+        istringstream iss(line);
+        int number;
+        string description, command, word;
+
+        // Read the number
+        iss >> number;
+        if (iss.fail()) continue;
+
+        // Read description (everything until "control" or "rundll32.exe")
+        while (iss >> word) {
+            if (word == "control" || word == "rundll32.exe") {
+                command = word;
+                break;
+            }
+            if (!description.empty()) description += " ";
+            description += word;
+        }
+
+        // Read the remaining command arguments
+        string rest;
+        getline(iss, rest);
+        if (!rest.empty()) command += rest;
+
+        if (!command.empty()) {
+            shortcuts.push_back(make_pair(number, Shortcut{description, command}));
+        }
+    }
+
+    file.close();
+    return shortcuts;
+}
+
+// Function to display menu
+void showMenu(const vector<pair<int, Shortcut> >& shortcuts) {
+    cout << "General Settings Shortcut Launcher\n";
+    cout << "---------------------------------\n";
+    for (size_t i = 0; i < shortcuts.size(); i++) {
+        cout << shortcuts[i].first << ". " << shortcuts[i].second.description << endl;
+    }
+    cout << "Enter your choice: ";
+}
+
+// Function to open selected Control Panel option
+void openControlPanelOption(int choice, const vector<pair<int, Shortcut> >& shortcuts) {
+    for (size_t i = 0; i < shortcuts.size(); i++) {
+        if (shortcuts[i].first == choice) {
+            if (shortcuts[i].second.command == "exit") {
+                cout << "Exiting...\n";
+                return;
+            }
+            system(shortcuts[i].second.command.c_str());
+            return;
+        }
+    }
+    cout << "Invalid choice! Try again.\n";
+}
+
+int main() {
+    vector<pair<int, Shortcut> > shortcuts = loadShortcuts("shortcuts.txt");
+
+    if (shortcuts.empty()) {
+        cout << "No shortcuts loaded. Check 'shortcuts.txt'.\n";
+    } else {
+        int choice;
+        do {
+            showMenu(shortcuts);
+            cin >> choice;
+            cin.ignore();  // Ignore leftover newline character
+            if (choice == 26) break;
+            openControlPanelOption(choice, shortcuts);
+        } while (true);
+    }
+
+    cout << "Press Enter to exit...";
+    cin.ignore();
+    cin.get();  // Wait for user to press Enter before closing
+
+    return 0;
+}

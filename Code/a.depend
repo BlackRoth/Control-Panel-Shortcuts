@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1741362770 source:f:\project\a\main.cpp
+	<iostream>
+	<cstdlib>
+
+1741364474 source:f:\project\a\control_panel.rc
+
+1741364474 source:h:\project\control panel shortcut launcher\control_panel.rc
+
+1743352562 source:h:\project\control panel shortcut launcher\main.cpp
+	<iostream>
+	<cstdlib>
+
