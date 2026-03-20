@@ -1,0 +1,25 @@
+1 System Properties control sysdm.cpl
+2 Network Connections control ncpa.cpl
+3 Device Manager control hdwwiz.cpl
+4 Windows Firewall control firewall.cpl
+5 User Accounts control /name Microsoft.UserAccounts
+6 Programs and Features control appwiz.cpl
+7 Power Options control powercfg.cpl
+8 Display Settings control desk.cpl
+9 Date and Time Settings control timedate.cpl
+10 Sound Settings control mmsys.cpl
+11 Mouse Settings control main.cpl
+12 Keyboard Settings control main.cpl keyboard
+13 Region and Language Settings control intl.cpl
+14 Internet Options control inetcpl.cpl
+15 Bluetooth Settings control bthprops.cpl
+16 Printers and Scanners control printers
+17 Administrative Tools control admintools
+18 Storage Management control /name Microsoft.StorageSpaces
+19 Security and Maintenance control /name Microsoft.ActionCenter
+20 Ease of Access Settings control /name Microsoft.EaseOfAccessCenter
+21 Credential Manager control /name Microsoft.CredentialManager
+22 Environment Variables rundll32.exe sysdm.cpl,EditEnvironmentVariables
+23 Task Scheduler control schedtasks
+24 Windows Update control /name Microsoft.WindowsUpdate
+25 Exit exit
